@@ -32,25 +32,13 @@ func TwoSum(nums []int, target int) []int {
 	m := map[int]int{}
 
 	for j, num := range nums {
-		// look for match in map m
-		if i, ok := m[num]; ok {
+		diff := target - num
+
+		if i, ok := m[diff]; ok {
 			return []int{i, j}
 		}
 
-		diff := target - num
-		m[diff] = j
-		/*
-			nums = [2, 7, 11, 15]
-			target = 9
-
-			map of: diff -> index
-			m = {
-				7: 0,
-				2: 1,
-				-2: 2,
-				-6: 3,
-			}
-		*/
+		m[num] = j
 	}
 
 	return nil
@@ -58,9 +46,9 @@ func TwoSum(nums []int, target int) []int {
 
 func TwoSumBrute(nums []int, target int) []int {
 	count := len(nums)
-	for i, num := range nums {
+	for i := range nums {
 		for j := i + 1; j < count; j++ {
-			sum := num + nums[j]
+			sum := nums[i] + nums[j]
 			if sum == target {
 				return []int{i, j}
 			}
